@@ -8,7 +8,7 @@ function TaskList({removeTask, tasks, updateTask}) {
   let taskItems = tasks.map((task) => {
     return (
       <TaskItem
-        key={task.key || task.title}
+        key={task.key}
         task={task}
         removeTask={removeTask}
         updateTask={updateTask}

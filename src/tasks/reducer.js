@@ -41,14 +41,14 @@ export function tasksReducer(state = new TasksState(), {payload, type}) {
     case LOAD_TASKS_SUCCESS:
       return state.set('list', new List(payload.reverse()));
 
-    case UPDATE_TASK_SUCCESS:
+    case UPDATE_TASK_SUCCESS: {
+      const taskIndex = state.list.findIndex(task => task.key === payload.key);
       return state.merge({
         deleted: null,
         previous: null,
-        list: state.list.map(task => {
-          return task.key === payload.key ? payload : task;
-        })
+        list: taskIndex === -1 ? state.list : state.list.set(taskIndex, payload)
       });
+    }
 
     case SIGN_OUT_SUCCESS:
       return new TasksState();
